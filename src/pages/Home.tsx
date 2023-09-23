@@ -1,3 +1,4 @@
+import ExpenseList from "../components/ExpenseList";
 import Input from "../components/shared/Input";
 import SelectInput from "../components/shared/SelectInput";
 
@@ -13,9 +14,7 @@ const Home = () => {
           </div>
         </div>
         <div className="basis-1/2 p-5">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat vel
-          ipsam iure sit fugit fugiat, totam et odio, debitis facilis rem ipsum
-          ab necessitatibus sequi, soluta assumenda impedit dicta? Ullam.
+          <ExpenseList></ExpenseList>
         </div>
       </div>
     </>
