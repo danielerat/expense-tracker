@@ -1,6 +1,6 @@
 # React + TypeScript + Vite + Tailwind CSS 🚀
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Simple Explense Tracker with React + TypeScript + Vite + Tailwind CSS
 
 ## Batteries Included
 
@@ -10,4 +10,3 @@ This template provides a minimal setup to get React working in Vite with HMR and
 - 🪟: Tailwind CSS
 - 🪝: React-Hook-Form + Zod
 - 🖇️: Prettier & ESLint
-- 🎁: Blueprint
