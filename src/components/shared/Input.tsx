@@ -1,18 +1,18 @@
-import { LegacyRef } from "react";
+import { FieldValues, UseFormRegister } from "react-hook-form";
 
 interface Props {
   name: string;
-  type: "text" | "password";
-  refProp: LegacyRef<HTMLInputElement>;
+  type: "text" | "password" | "number" | "email";
+  refRegister: UseFormRegister<FieldValues>;
 }
-const Input = ({ name, type, refProp }: Props) => {
+const Input = ({ name, type, refRegister }: Props) => {
   return (
     <div>
       <label
         htmlFor={name}
         className="relative block rounded-md border font-bold border-gray-400 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
         <input
-          ref={refProp}
+          {...refRegister(name)}
           type={type}
           id={name}
           className="peer border-none bg-transparent placeholder-transparent focus:border-transparent p-3 focus:outline-none focus:ring-0"
