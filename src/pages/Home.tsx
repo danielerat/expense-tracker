@@ -1,4 +1,5 @@
 import Input from "../components/shared/Input";
+import SelectInput from "../components/shared/SelectInput";
 
 const Home = () => {
   return (
@@ -8,6 +9,7 @@ const Home = () => {
           <div className="flex flex-col gap-10">
             <Input name="Description" type="text"></Input>
             <Input name="Amount" type="text"></Input>
+            <SelectInput></SelectInput>
           </div>
         </div>
         <div className="basis-1/2 p-5">
