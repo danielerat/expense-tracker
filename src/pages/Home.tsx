@@ -29,12 +29,15 @@ const Home = () => {
         <div className="basis-1/2 p-5 bg-gray-100 rounded-lg">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col gap-10">
-              <Input
-                refRegister={register}
-                name="Description"
-                type="text"></Input>
-              <Input refRegister={register} name="Amount" type="number"></Input>
-              <SelectInput refProp={category}></SelectInput>
+              <Input refRegister={register} name="description" type="text">
+                Description
+              </Input>
+              <Input refRegister={register} name="amount" type="number">
+                Amount
+              </Input>
+              <SelectInput refRegister={register} name="type">
+                Category of Expense
+              </SelectInput>
               <Button type="submit">Add Expense</Button>
             </div>
           </form>

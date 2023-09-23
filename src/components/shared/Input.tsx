@@ -1,11 +1,12 @@
 import { FieldValues, UseFormRegister } from "react-hook-form";
 
 interface Props {
+  children?: string;
   name: string;
   type: "text" | "password" | "number" | "email";
   refRegister: UseFormRegister<FieldValues>;
 }
-const Input = ({ name, type, refRegister }: Props) => {
+const Input = ({ name, type, refRegister, children: label = name }: Props) => {
   return (
     <div>
       <label
@@ -20,7 +21,7 @@ const Input = ({ name, type, refRegister }: Props) => {
         />
 
         <span className="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-gray-100 p-1 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
-          {name}
+          {label}
         </span>
       </label>
     </div>
