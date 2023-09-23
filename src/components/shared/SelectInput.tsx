@@ -1,4 +1,9 @@
-const SelectInput = () => {
+import { LegacyRef } from "react";
+
+interface Props {
+  refProp: LegacyRef<HTMLSelectElement>;
+}
+const SelectInput = ({ refProp }: Props) => {
   return (
     <>
       <div>
@@ -9,7 +14,7 @@ const SelectInput = () => {
         </label>
 
         <select
-          name="HeadlineAct"
+          ref={refProp}
           id="HeadlineAct"
           className="mt-1.5 p-3 w-full rounded-lg border-gray-200 text-gray-700 sm:text-sm">
           <option value="">Please select</option>
