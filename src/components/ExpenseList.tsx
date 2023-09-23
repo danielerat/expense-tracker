@@ -1,3 +1,5 @@
+import ButtonDelete from "./shared/ButtonDelete";
+
 type Expense = {
   id: number;
   description: string;
@@ -7,9 +9,10 @@ type Expense = {
 
 type ExpenseListProps = {
   expenses: Expense[];
+  onDelete: (id: number) => void;
 };
 
-const ExpenseList = ({ expenses }: ExpenseListProps) => {
+const ExpenseList = ({ expenses, onDelete }: ExpenseListProps) => {
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
@@ -43,7 +46,9 @@ const ExpenseList = ({ expenses }: ExpenseListProps) => {
                 {expense.category}
               </td>
               <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                delete
+                <ButtonDelete
+                  handleDelete={onDelete}
+                  expenseId={expense.id}></ButtonDelete>
               </td>
             </tr>
           ))}

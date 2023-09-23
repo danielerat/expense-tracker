@@ -3,69 +3,88 @@ import ExpenseList from "../components/ExpenseList";
 import Button from "../components/shared/Button";
 import Input from "../components/shared/Input";
 import SelectInput from "../components/shared/SelectInput";
-import { useForm, FieldValues } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import ErrorParagraph from "../components/shared/ErrorParagraph";
+import CATEGORIES from "../data/Categories";
 
 const schema = z.object({
+  id: z.number().optional(),
   description: z.string().min(3),
-  amount: z.number().min(1),
-  category: z.string(),
+  amount: z.number().min(10),
+  category: z.enum(CATEGORIES, {
+    errorMap: () => ({ message: "Invalid Category" }),
+  }),
 });
-// type FormData = z.infer<typeof schema>;
-
+type ExpenseFormData = z.infer<typeof schema>;
 const Home = () => {
-  const [expenses] = useState([
-    { id: 1, description: "Milk", amount: 1300, category: "Grocery" },
+  const [expenses, setExpenses] = useState([
+    { id: 1, description: "test", amount: 100, category: "Groceries" },
+    { id: 2, description: "anoe", amount: 100, category: "Groceries" },
+    { id: 3, description: "fine", amount: 100, category: "Groceries" },
   ]);
 
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid, isSubmitted },
-  } = useForm({
+    reset,
+    formState: { errors },
+  } = useForm<ExpenseFormData>({
     resolver: zodResolver(schema),
   });
+  console.log(errors);
 
-  function onSubmit(data: FieldValues) {
-    console.log(data);
-    console.log();
-
-    console.log(isValid);
-    console.log(isSubmitted);
-  }
   return (
     <>
-      <div className="md:flex items-center p-10">
-        <div className="basis-1/2 p-5 bg-gray-100 rounded-lg">
-          <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="items-center p-10 md:flex">
+        <div className="p-5 bg-gray-100 rounded-lg basis-1/2">
+          <form
+            onSubmit={handleSubmit((e) => {
+              setExpenses([...expenses, { ...e, id: expenses.length + 1 }]);
+              reset();
+            })}>
             <div className="flex flex-col gap-10">
-              <Input
-                refRegister={register}
-                name="description"
-                type="text"
-                // @ts-ignore
-                fieldError={errors?.description?.message}>
-                Description
-              </Input>
-
-              <Input
-                refRegister={register}
-                name="amount"
-                type="number"
-                // @ts-ignore
-                fieldError={errors?.amount?.message}>
-                Amount
-              </Input>
-              <SelectInput refRegister={register} name="type">
-                Category of Expense
-              </SelectInput>
+              <div>
+                <Input refRegister={register} name="description" type="text">
+                  Description
+                </Input>
+                {errors.description && (
+                  <ErrorParagraph>
+                    {String(errors.description.message)}
+                  </ErrorParagraph>
+                )}
+              </div>
+              <div>
+                <Input refRegister={register} name="amount" type="number">
+                  Amount
+                </Input>
+                {errors.amount && (
+                  <ErrorParagraph>
+                    {String(errors.amount.message)}
+                  </ErrorParagraph>
+                )}
+              </div>
+              <div>
+                <SelectInput refRegister={register} name="category">
+                  Category of Expense
+                </SelectInput>
+                {errors.category && (
+                  <ErrorParagraph>
+                    {String(errors.category.message)}
+                  </ErrorParagraph>
+                )}
+              </div>
               <Button type="submit">Add Expense</Button>
             </div>
           </form>
         </div>
-        <div className="bg-gray-100 basis-1/2 p-5">
-          <ExpenseList expenses={expenses}></ExpenseList>
+        <div className="p-5 bg-gray-100 basis-1/2">
+          <ExpenseList
+            expenses={expenses}
+            onDelete={(id) =>
+              setExpenses(expenses.filter((e) => e.id !== id))
+            }></ExpenseList>
         </div>
       </div>
     </>
